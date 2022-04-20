@@ -1,0 +1,2 @@
+cmake .. -DONNXRUNTIME_ROOTDIR=${ONNXRUNTIME_ROOTDIR}
+./Debug/api_app 3
