@@ -12,4 +12,3 @@ project(api VERSION 0.0.1)
 # add the executable
 add_executable(api_app main.cpp)
 
-target_link_libraries(api_app ${ONNXRUNTIME_ROOTDIR}/lib/onnxruntime.lib)
