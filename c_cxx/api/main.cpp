@@ -1,4 +1,3 @@
-// A simple program that computes the square root of a number
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
@@ -8,8 +7,11 @@
 
 int main(int argc, char* argv[])
 {
-    const wchar_t* model_path = L"squeezenet.onnx";
-
+#ifdef _WIN32
+  const wchar_t* model_path = L"squeezenet.onnx";
+#else
+  const char* model_path = "squeezenet.onnx";
+#endif
     Ort::Env env;
     Ort::SessionOptions session_options;
     session_options.SetIntraOpNumThreads(1);
