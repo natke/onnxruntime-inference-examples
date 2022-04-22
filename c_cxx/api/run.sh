@@ -8,3 +8,4 @@ mkdir build
 cd build
 cmake .. -DONNXRUNTIME_ROOTDIR=${ONNXRUNTIME_ROOTDIR}
 cmake --build .
+build/api_app

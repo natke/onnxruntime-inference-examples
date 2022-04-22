@@ -16,6 +16,17 @@ int main(int argc, char* argv[])
     Ort::SessionOptions session_options;
     session_options.SetIntraOpNumThreads(1);
     session_options.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_EXTENDED);
+
+
+//    OrtCUDAProviderOptions options;
+//    options.device_id = 0;
+//    options.arena_extend_strategy = 0;
+//    options.gpu_mem_limit = 2 * 1024 * 1024 * 1024;
+//    options.cudnn_conv_algo_search = OrtCudnnConvAlgoSearch::OrtCudnnConvAlgoSearchExhaustive;
+//    options.do_copy_in_default_stream = 1;
+
+    OrtSessionOptionsAppendExecutionProvider_CUDA(session_options, 0);
+
     Ort::RunOptions run_options = Ort::RunOptions();
 
     Ort::Session session(env, model_path, session_options);
@@ -44,8 +55,7 @@ int main(int argc, char* argv[])
         printf("Input: dim %zu=%jd\n", j, input_node_dims[j]);
     }
 
-    size_t input_tensor_size = 224 * 224 * 3;  // simplify ... using known dim values to calculate size
-                                             // use OrtGetTensorShapeElementCount() to get official size!
+    size_t input_tensor_size = 224 * 224 * 3;  
 
     std::vector<float> input_tensor_values(input_tensor_size);
 
