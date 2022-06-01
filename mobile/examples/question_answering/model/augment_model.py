@@ -1,5 +1,4 @@
 from pathlib import Path
-import numpy as np
 import torch
 from transformers import AutoTokenizer
 import onnx
@@ -16,9 +15,9 @@ def map_token_output(input_ids, attention_mask, token_type_ids):
 
 # Post process the start and end logits
 def post_process(*pred):
-    start = np.argmax(pred[0])
-    end = np.argmax(pred[1])
-    return torch.tensor([start,end])
+    start = torch.argmax(pred[0])
+    end = torch.argmax(pred[1])
+    return (start,end)
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 bert_tokenizer = pnp.PreHuggingFaceBert(hf_tok=tokenizer)
