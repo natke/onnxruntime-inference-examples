@@ -1,33 +1,35 @@
 from pathlib import Path
+import numpy as np
 import torch
 from transformers import AutoTokenizer
 import onnx
 from onnxruntime_extensions import pnp
 
 # get an onnx model by converting HuggingFace pretrained model
-model_name = "bert-base-cased"
-model_path = Path("bert-base-cased.onnx")
-
-# a silly post-processing example function, demo-purpose only
-def post_processing_forward(*pred):
-    return torch.softmax(pred[1], dim=1)
-
+qa_bert_model_name = "bert-large-uncased-whole-word-masking-finetuned-squad"
+model_name = qa_bert_model_name
+model_path = Path(model_name + ".onnx")
 
 # mapping the BertTokenizer outputs into the onnx model inputs
-def mapping_token_output(_1, _2, _3):
-    return _1.unsqueeze(0), _3.unsqueeze(0), _2.unsqueeze(0)
+def map_token_output(input_ids, attention_mask, token_type_ids):
+    return input_ids.unsqueeze(0), token_type_ids.unsqueeze(0), attention_mask.unsqueeze(0)
 
+# Post process the start and end logits
+def post_process(*pred):
+    start = np.argmax(pred[0])
+    end = np.argmax(pred[1])
+    return torch.tensor([start,end])
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 bert_tokenizer = pnp.PreHuggingFaceBert(hf_tok=tokenizer)
 bert_model = onnx.load_model(str(model_path))
 
-test_sentence = ["this is a test sentence."]
+test_question = ["What is the population of the United States", "The United States had an official resident population of 331,893,745 on July 1, 2021, according to the U.S. Census Bureau."]
 
 # create the final onnx model which includes pre- and post- processing.
 augmented_model = pnp.export(pnp.SequentialProcessingModule(
-                             bert_tokenizer, mapping_token_output,
-                             bert_model, post_processing_forward),
-                             test_sentence,
+                             bert_tokenizer, map_token_output,
+                             bert_model, post_process),
+                             test_question,
                              opset_version=12,
                              output_path=model_name + '-aug.onnx')
