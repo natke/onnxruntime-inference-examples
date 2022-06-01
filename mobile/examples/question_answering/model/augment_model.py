@@ -23,12 +23,16 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 bert_tokenizer = pnp.PreHuggingFaceBert(hf_tok=tokenizer)
 bert_model = onnx.load_model(str(model_path))
 
+augmented_model = pnp.SequentialProcessingModule(bert_tokenizer, map_token_output,
+                                                 bert_model, post_process)
+
 test_question = ["What is the population of the United States", "The United States had an official resident population of 331,893,745 on July 1, 2021, according to the U.S. Census Bureau."]
 
 # create the final onnx model which includes pre- and post- processing.
-augmented_model = pnp.export(pnp.SequentialProcessingModule(
-                             bert_tokenizer, map_token_output,
-                             bert_model, post_process),
+augmented_model = pnp.export(augmented_model,
                              test_question,
                              opset_version=12,
-                             output_path=model_name + '-aug.onnx')
+                             input_names=['question'],
+                             output_names=['start', 'end'],
+                             output_path=model_name + '-aug.onnx',
+                             dynamic_axes={'question': [0]})
