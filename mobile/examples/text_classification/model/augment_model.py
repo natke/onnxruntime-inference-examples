@@ -1,4 +1,3 @@
-from doctest import OutputChecker
 from pathlib import Path
 import torch
 from transformers import AutoTokenizer
@@ -26,7 +25,7 @@ bert_model = onnx.load_model(str(model_path))
 augmented_model = pnp.SequentialProcessingModule(bert_tokenizer, map_token_output,
                                                  bert_model, post_process)
 
-test_input = ["What is the population of the United States"]
+test_input = ["This is s test sentence"]
 
 # create the final onnx model which includes pre- and post- processing.
 augmented_model = pnp.export(augmented_model,
