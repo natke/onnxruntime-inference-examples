@@ -1,3 +1,4 @@
+from doctest import OutputChecker
 from pathlib import Path
 import torch
 from transformers import AutoTokenizer
@@ -5,7 +6,7 @@ import onnx
 from onnxruntime_extensions import pnp
 
 # get an onnx model by converting HuggingFace pretrained model
-bert_model_name = "bert-large-uncased-whole-word-masking-finetuned-squad
+bert_model_name = "distilbert-base-uncased-finetuned-sst-2-english"
 model_name = bert_model_name
 model_path = Path(model_name + ".onnx")
 
@@ -15,9 +16,8 @@ def map_token_output(input_ids, attention_mask, token_type_ids):
 
 # Post process the start and end logits
 def post_process(*pred):
-    start = torch.argmax(pred[0])
-    end = torch.argmax(pred[1])
-    return (start,end)
+    output = torch.argmax(pred[0])
+    return output
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 bert_tokenizer = pnp.PreHuggingFaceBert(hf_tok=tokenizer)
@@ -26,13 +26,13 @@ bert_model = onnx.load_model(str(model_path))
 augmented_model = pnp.SequentialProcessingModule(bert_tokenizer, map_token_output,
                                                  bert_model, post_process)
 
-test_question = ["What is the population of the United States", "The United States had an official resident population of 331,893,745 on July 1, 2021, according to the U.S. Census Bureau."]
+test_input = ["What is the population of the United States"]
 
 # create the final onnx model which includes pre- and post- processing.
 augmented_model = pnp.export(augmented_model,
-                             test_question,
+                             test_input,
                              opset_version=12,
                              input_names=['input'],
-                             output_names=['start', 'end'],
+                             output_names=['output'],
                              output_path=model_name + '-aug.onnx',
-                             dynamic_axes={'question': [0], 'start': [0], 'end': [0]})
+                             dynamic_axes={'input': [0], 'output': [0]})
