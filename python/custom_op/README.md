@@ -1,4 +1,4 @@
-# Use a custom op in the library in your model
+# Resnet export repo
 
 ## PyTorch model
 
@@ -8,4 +8,3 @@
 
 `export.py`
 
-Override center_crop with CenterCrop from the library?
