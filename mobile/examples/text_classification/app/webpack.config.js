@@ -15,6 +15,13 @@ module.exports = async function (env, argv) {
         },             {
           from: './node_modules/onnxruntime-web/dist/ort-wasm-simd.wasm',
           to: 'static/chunks/pages',
+        },
+        {
+          from: './node_modules/onnxruntime-web/dist/ort-wasm-threaded.wasm',
+          to: 'static/chunks/pages',
+        },             {
+          from: './node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.wasm',
+          to: 'static/chunks/pages',
         }]          
       }
     )
