@@ -11,17 +11,17 @@ module.exports = async function (env, argv) {
       patterns: [
         {
           from: './node_modules/onnxruntime-web/dist/ort-wasm.wasm',
-          to: 'static/chunks/pages',
+          to: 'static/js'
         },             {
           from: './node_modules/onnxruntime-web/dist/ort-wasm-simd.wasm',
-          to: 'static/chunks/pages',
+          to: 'static/js'
         },
         {
           from: './node_modules/onnxruntime-web/dist/ort-wasm-threaded.wasm',
-          to: 'static/chunks/pages',
+          to: 'static/js'
         },             {
           from: './node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.wasm',
-          to: 'static/chunks/pages',
+          to: 'static/js'
         }]          
       }
     )
