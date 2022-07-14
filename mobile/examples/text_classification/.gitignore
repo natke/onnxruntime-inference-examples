@@ -1,3 +1,4 @@
 *.config
 .expo
+.expo-shared
 ios
