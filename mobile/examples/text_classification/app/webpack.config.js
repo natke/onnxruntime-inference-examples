@@ -6,7 +6,7 @@ module.exports = async function (env, argv) {
 
   const config = await createExpoWebpackConfigAsync(env, argv);
 
-  config.resolver.assetExts.push('ort');
+  config.resolve.extensions = ['ort', '...'];
 
   config.plugins.push(
     new CopyPlugin({
