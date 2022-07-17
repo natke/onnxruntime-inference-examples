@@ -1,7 +1,7 @@
 import onnxruntime
 import onnxruntime_extensions
 
-test_input = ["I don't really like tomatoes. They are too bitter"]
+test_input = ["Do you like me?"]
 
 # Load the model
 session_options = onnxruntime.SessionOptions()
