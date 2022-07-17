@@ -8,10 +8,10 @@
   conda env list
   conda activate 
 
-
-
 * Export model
+
 * Augment model
+
 * Convert model to ORT format
 
   ```bash
@@ -39,11 +39,15 @@
    cp onnxruntime/build/Windows/Debug/ort-wasm-threaded.wasm onnxruntime/js/web/dist
    cp onnxruntime/build/Windows/Debug/ort-wasm-simd.wasm onnxruntime/js/web/dist
    cp onnxruntime/build/Windows/Debug/ort-wasm-simd-threaded.wasm onnxruntime/js/web/dist
-   cp: cannot stat 'onnxruntime/build/Windows/Debug/ort-wasm-simd-threaded.wasm': No such file or directory
    cp onnxruntime/build/Windows/Debug/ort-wasm.js onnxruntime/js/web/lib/wasm/binding
    cp onnxruntime/build/Windows/Debug/ort-wasm-threaded.js onnxruntime/js/web/lib/wasm/binding
    cp onnxruntime/build/Windows/Debug/ort-wasm-threaded.worker.js onnxruntime/js/web/lib/wasm/binding
    ```
+
+3. Follow instructions to build the npm packahe with the customized wasm files here
+
+   https://onnxruntime.ai/docs/build/web.html#build-onnxruntime-web-npm-package
+   
 
 ## Application
 
@@ -56,6 +60,3 @@
   ```bash
   expo start --no-dev --minify
   ```
-
-
-
