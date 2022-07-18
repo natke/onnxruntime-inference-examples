@@ -1,4 +1,4 @@
-# Use ONNX Runtime with extensions and React Native for Text classification
+# Text classifiation on mobile and web with ONNX Runtime with extensions, Expo and React Native
 
 ## Model
 
@@ -15,11 +15,14 @@
 * Convert model to ORT format
 
   ```bash
-  python -m onnxruntime.tools.convert_onnx_models_to_ort --custom_op_library /C/Users/nakersha/Miniconda3/envs/orte/lib/site-packages/onnxruntime_extensions/_ortcustomops.cp3
-9-win_amd64.pyd distilbert-base-uncased-finetuned-sst-2-english-aug.onnx
+  python -m onnxruntime.tools.convert_onnx_models_to_ort --custom_op_library /C/Users/nakersha/Miniconda3/envs/orte/lib/site-packages/onnxruntime_extensions/_ortcustomops.cp39-win_amd64.pyd distilbert-base-uncased-finetuned-sst-2-english-aug.onnx
   ```
 
 ## Build ONNX Runtime to include the extensions
+
+### iOS
+
+### Web 
 
 1. Build ONNX Runtime with extensions enabled for all WASM variants
 
