@@ -1,4 +1,4 @@
-# Text classifiation on mobile and web with ONNX Runtime with extensions, Expo and React Native
+# Text classifiation on mobile and web using ONNX Runtime with extensions, Expo and React Native
 
 ## Model
 
