@@ -1,5 +1,11 @@
 # Use ONNX Runtime with extensions and React Native for Text classification
 
+## Pre-requisites
+
+Install node
+Install nvm (On mac, need node version 16.17)
+
+
 ## Model
 
 * Environment and dependencies
@@ -20,6 +26,14 @@
   ```
 
 ## Build ONNX Runtime to include the extensions
+
+### iOS
+
+* Update brew and install watchman
+* 
+
+
+### Web
 
 1. Build ONNX Runtime with extensions enabled for all WASM variants
 

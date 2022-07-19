@@ -1,4 +1,5 @@
 *.config
 .expo
 .expo-shared
-ios
+ios/
+android/

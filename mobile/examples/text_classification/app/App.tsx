@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading'
 import { Platform, Alert, Button, StyleSheet, TextInput, View } from 'react-native';
 import React, {useState} from 'react'
-import * as ort from 'onnxruntime-web';
+import * as ort from 'onnxruntime-react-native';
 import { Asset } from 'expo-asset';
 
 let myModel: ort.InferenceSession;
