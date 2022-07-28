@@ -1,11 +1,13 @@
 
 import torch
 
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+# from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import MobileBertForSequenceClassification
 
-model_name = "distilbert-base-uncased-finetuned-sst-2-english"
-model_path = "./" + model_name + ".onnx"
-model = AutoModelForSequenceClassification.from_pretrained(model_name)
+#model_name = "distilbert-base-uncased-finetuned-sst-2-english"
+model_name = "lordtt13/emo-mobilebert"
+model_path = "./" + "lordtt13-emo-mobilebert" + ".onnx"
+model = MobileBertForSequenceClassification.from_pretrained(model_name)
 
 # set the model to inference mode
 # It is important to call torch_model.eval() or torch_model.train(False) before exporting the model, 

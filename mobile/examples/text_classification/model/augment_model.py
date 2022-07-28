@@ -5,8 +5,8 @@ import onnx
 from onnxruntime_extensions import pnp
 
 # get an onnx model by converting HuggingFace pretrained model
-bert_model_name = "distilbert-base-uncased-finetuned-sst-2-english"
-model_name = bert_model_name
+bert_model_name = "lordtt13/emo-mobilebert"
+model_name = "lordtt13-emo-mobilebert"
 model_path = Path(model_name + ".onnx")
 
 # mapping the BertTokenizer outputs into the onnx model inputs
@@ -18,7 +18,7 @@ def post_process(*pred):
     output = torch.argmax(pred[0])
     return output
 
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(bert_model_name)
 bert_tokenizer = pnp.PreHuggingFaceBert(hf_tok=tokenizer)
 bert_model = onnx.load_model(str(model_path))
 
