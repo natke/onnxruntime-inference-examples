@@ -1,0 +1,1 @@
+python -m onnxruntime.tools.convert_onnx_models_to_ort --custom_op_library /C/Users/nakersha/Miniconda3/envs/orte/lib/site-packages/onnxruntime_extensions/_ortcustomops.cp39-win_amd64.pyd lordtt13-emo-mobilebert-aug.onnx
