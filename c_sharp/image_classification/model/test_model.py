@@ -3,7 +3,10 @@ from numpy import asarray
 import onnxruntime
 
 # load the image
-image = asarray(Image.open('kimono.jpg'))
+image = asarray(Image.open('test_pattern.jpg'))
+
+print(image.shape)
+print(image)
 
 image_ortvalue = onnxruntime.OrtValue.ortvalue_from_numpy(image)
 

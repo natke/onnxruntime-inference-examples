@@ -21,7 +21,7 @@ inputs = {
         'attention_mask': torch.ones([1, 32], dtype=torch.long)      # dummy list of ones
     }
 
-symbolic_names = {0: 'batch_size', 1: 'max_seq_llsen'}
+symbolic_names = {0: 'batch_size', 1: 'max_seq_len'}
 torch.onnx.export(model,                                         # model being run
                   (inputs['input_ids'],
                    inputs['attention_mask']), 
