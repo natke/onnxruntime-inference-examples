@@ -56,7 +56,7 @@ def init():
     tokenizer = transformers.BertTokenizer.from_pretrained(model_name)
 
     # Create an ONNX Runtime session to run the ONNX model
-    session = onnxruntime.InferenceSession(model_path, providers=["CPUExecutionProvider"]) 
+    session = onnxruntime.InferenceSession(model_path, providers=["CUDAExecutionProvider", "CPUExecutionProvider"]) 
 
     return (tokenizer, session, model, device)
 
@@ -109,10 +109,11 @@ def run(tokenizer, session, raw_data):
 
 
 if __name__ == '__main__':
+
     tokenizer, session, model, device = init()
 
     input = "{\"question\": \"What is Dolly Parton's middle name?\", \"context\": \"Dolly Rebecca Parton is an American singer-songwriter\"}"
 
-    print(f'PyTorch: {run_pytorch(tokenizer, session, input)}')
-    #print(f'ORT: {run(tokenizer, session, input)}')
+    #print(f'PyTorch: {run_pytorch(tokenizer, model, input)}')
+    print(f'ORT: {run(tokenizer, session, input)}')
 
