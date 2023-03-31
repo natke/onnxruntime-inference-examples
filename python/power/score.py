@@ -40,8 +40,6 @@ def init():
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    print(device)
-
     model_name = "bert-large-uncased-whole-word-masking-finetuned-squad"
     model = transformers.BertForQuestionAnswering.from_pretrained(model_name)
 
@@ -56,7 +54,10 @@ def init():
     tokenizer = transformers.BertTokenizer.from_pretrained(model_name)
 
     # Create an ONNX Runtime session to run the ONNX model
-    session = onnxruntime.InferenceSession(model_path, providers=["CUDAExecutionProvider", "CPUExecutionProvider"]) 
+    options = onnxruntime.SessionOptions() 
+    options.log_severity_level = 0
+    options.log_verbosity_level = 2
+    session = onnxruntime.InferenceSession(model_path, providers=["CUDAExecutionProvider", "CPUExecutionProvider"], options=options) 
 
     return (tokenizer, session, model, device)
 

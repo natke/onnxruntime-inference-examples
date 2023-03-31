@@ -7,8 +7,8 @@ import score
 def run_inference(tokenizer, model,  session):
     input = "{\"question\": \"What is Dolly Parton's middle name?\", \"context\": \"Dolly Rebecca Parton is an American singer-songwriter\"}"
  
-    #return score.run(tokenizer, session, input)
-    return score.run_pytorch(tokenizer, model, input)
+    return score.run(tokenizer, session, input)
+    #return score.run_pytorch(tokenizer, model, input)
 
 
 def client_program():
