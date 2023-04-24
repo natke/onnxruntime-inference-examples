@@ -5,6 +5,8 @@ import numpy as np
 import onnxruntime
 import transformers
 import torch
+from experiment_impact_tracker.compute_tracker import ImpactTracker
+
 
 # The pre process function take a question and a context, and generates the tensor inputs to the model:
 # - input_ids: the words in the question encoded as integers
@@ -81,6 +83,8 @@ def run_pytorch(tokenizer, model, raw_data):
 def run(tokenizer, session, raw_data):
     logging.info("Request received")
 
+    tracker = ImpactTracker(tmp_dir)
+
     inputs = json.loads(raw_data)
 
     logging.info(inputs)
@@ -96,6 +100,8 @@ def run(tokenizer, session, raw_data):
         'input_mask':  [input_mask],
         'segment_ids': [segment_ids]
         }
+    
+    tracker.launch_impact_monitor()
                   
     outputs = session.run(['start_logits', 'end_logits'], model_inputs)
 
